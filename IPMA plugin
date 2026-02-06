@@ -1,0 +1,13 @@
+// Obter depressões atuais
+fetch('https://api.ipma.pt/open-data/weather/analysis.json')
+  .then(res => res.json())
+  .then(data => {
+    // data contém isóbaras, centros de pressão, etc.
+    console.log(data);
+    // Aqui podes filtrar depressões (valores baixos de pressão)
+    data.centros.forEach(centro => {
+      if(centro.tipo === 'L'){ // 'L' = baixa pressão
+        console.log(`Depressão em ${centro.local}: ${centro.pressao} hPa`);
+      }
+    });
+  });
